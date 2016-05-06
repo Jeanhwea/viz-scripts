@@ -1,0 +1,47 @@
+dim textype as integer dim mptype as integer
+
+sub OnExecPerField()
+
+    if  textype = 0 then 
+        mptype = TX_MAP_VERTEX
+    elseif textype = 1 then
+        mptype = TX_MAP_LINEAR
+    elseif textype = 2 then
+        mptype = TX_MAP_REFLECT
+    elseif textype = 3 then
+        mptype = TX_MAP_SPHERICAL
+    end if
+
+    this.texture.mapposition.x = this.texture.mapposition.x +GetParameterDouble("speed_X")
+    this.texture.mapposition.y = this.texture.mapposition.y +GetParameterDouble("speed_Y")
+    this.texture.mapscaling.x = GetParameterDouble("scaling_X")
+    this.texture.mapscaling.y = GetParameterDouble("scaling_Y")
+    this.texture.maptype =mptype
+end sub
+
+
+sub OnInitParameters()
+
+    RegisterParameterDouble("speed_X", "speed X:" , 0 , -3 , 3)
+    RegisterParameterDouble("speed_Y", "speed Y:" , 0 , -3 , 3)
+    RegisterParameterDouble("scaling_X", "scaling X:" , 1 , -100 , 100)
+    RegisterParameterDouble("scaling_Y", "scaling Y:" , 1 , -100 , 100)
+
+    dim type as array[string]
+    type.push("VERTEX")
+    type.push("LINEAR")
+    type.push("REFLECT")
+    type.push("SPHERICAL")
+    RegisterRadioButton("type","Texture Type:",1,type)
+
+end sub
+
+
+sub ReadValues()
+    textype=GetParameterInt("type")
+end sub
+
+sub OnParameterChanged(parameterName As String)
+    ReadValues()
+end sub
+

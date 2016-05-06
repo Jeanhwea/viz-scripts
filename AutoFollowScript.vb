@@ -1,0 +1,52 @@
+dim master = Scene.findcontainer("Master")
+
+Dim spd as double
+
+sub OnInitParameters()
+    RegisterParameterDouble("speed", "speed :" , 5 , 1 , 30)
+    RegisterParameterContainer("target_con","Master")
+end sub
+
+sub OnExecPerField()
+    master=GetParameterContainer("target_con")
+    spd = GetParameterDouble("speed")
+    if master.position.x < this.position.x then
+        this.position.x = this.position.x  - ((this.position.x - master.position.x)/spd)
+    elseif master.position.x > this.position.x then 
+        this.position.x = this.position.x  + ((master.position.x - this.position.x)/spd)
+    end if
+
+    if master.position.y < this.position.y then
+        this.position.y = this.position.y  - ((this.position.y - master.position.y)/spd)
+    elseif master.position.y > this.position.y then
+        this.position.y = this.position.y  + ((master.position.y - this.position.y)/spd)
+    end if
+
+
+    if master.position.z < this.position.z then
+        this.position.z = this.position.z  - ((this.position.z - master.position.z)/spd)
+    elseif master.position.z > this.position.z then
+        this.position.z = this.position.z  + ((master.position.z - this.position.z)/spd)
+    end if
+
+    if master.scaling.x < this.scaling.x then
+        this.scaling.x = this.scaling.x  - ((this.scaling.x - master.scaling.x)/spd)
+    elseif master.Scaling.x > this.scaling.x then
+        this.scaling.x = this.scaling.x  + ((master.scaling.x - this.scaling.x)/spd)
+    end if
+
+    if master.scaling.y < this.scaling.y then
+        this.scaling.xyz = this.scaling.y  - ((this.scaling.y - master.scaling.y)/spd)
+    elseif master.scaling.y > this.scaling.y then
+        this.scaling.xyz = this.scaling.y  + ((master.scaling.y - this.scaling.y)/spd)
+    end if
+
+    if master.rotation.z < this.rotation.z then
+        this.rotation.z = this.rotation.z  - ((this.rotation.z - master.rotation.z)/spd)
+    elseif master.rotation.z > this.rotation.z then
+        this.rotation.z = this.rotation.z  + ((master.rotation.z - this.rotation.z)/spd)
+    end if
+
+end sub
+
+
