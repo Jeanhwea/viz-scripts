@@ -3,10 +3,8 @@ sub OnInitParameters()
     RegisterPushButton("refresh", "Refresh", 1)
 end sub
 
-
 sub OnExecAction(buttonId as Integer)
-    dim path as string
+    dim path as String
     path = GetParameterString("path")
-
     this.createTexture(path)
 end sub
